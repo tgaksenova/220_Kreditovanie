@@ -1,0 +1,47 @@
+﻿<Page x:Class="PR30.Pages.EnterDataOnContributionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PR30.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EnterDataOnContributionPage">
+
+    <Grid Style="{DynamicResource GridStyle}" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="0.2*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Style="{DynamicResource DataGridStyle}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" AutoGenerateColumns="False" Name="Loans">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="StartDate" Binding="{Binding StartDate}"/>
+                <DataGridTextColumn Header="AdditionalConditions" Binding="{Binding AdditionalConditions}"/>
+                <DataGridTextColumn Header="Bank" Binding="{Binding Bank}"/>
+                <DataGridTextColumn Header="LoansTerm" Binding="{Binding LoansTerm}"/>
+                <DataGridTextColumn Header="LoansName" Binding="{Binding LoansName}"/>
+                <DataGridTextColumn Header="InterestRate" Binding="{Binding InterestRate}"/>
+                <DataGridTextColumn Header="DownPayment" Binding="{Binding DownPayment}"/>
+                <DataGridTextColumn Header="MonthlyPayment" Binding="{Binding MonthlyPayment}"/>
+                <DataGridTextColumn Header="EstateType" Binding="{Binding EstateType}"/>
+                <DataGridTextColumn Header="EstateCategory" Binding="{Binding EstateCategory}"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="Address" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="Paid" Binding="{Binding Paid}"/>
+                <DataGridTextColumn Header="LifeInsurance" Binding="{Binding LifeInsurance}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{DynamicResource ButtonStyle}" Content="Добавить взнос" Click="Button_Click_1" Tag="{Binding Id}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="1" Grid.Column="1" Margin="5" Content="Назад" Click="Button_Click"/>
+    </Grid>
+</Page>

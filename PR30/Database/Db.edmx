@@ -1,0 +1,539 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище CreditsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Banks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Debtors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="InformationAboutLoans">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoansName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LoansTerm" Type="int" />
+          <Property Name="InterestRate" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="DownPayment" Type="decimal" Precision="11" Scale="2" />
+          <Property Name="MonthlyPayment" Type="decimal" Precision="11" Scale="2" />
+          <Property Name="LifeInsurance" Type="bit" />
+        </EntityType>
+        <EntityType Name="Loans">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankID" Type="int" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="DebtorID" Type="int" />
+          <Property Name="InformationAboutLoansID" Type="int" />
+          <Property Name="RealEstateObjectsID" Type="int" />
+          <Property Name="AdditionalConditions" Type="nvarchar(max)" />
+          <Property Name="IsAccepted" Type="bit" />
+          <Property Name="IsDecline" Type="bit" />
+          <Property Name="IsPaid" Type="bit" />
+        </EntityType>
+        <EntityType Name="RealEstateCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EstateCategory" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RealEstateObjects">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RealEstateTypeID" Type="int" />
+          <Property Name="RealEstateCategoryID" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="11" Scale="2" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Paid" Type="decimal" Precision="11" Scale="2" />
+        </EntityType>
+        <EntityType Name="RealEstateType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EstateType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Debtors__UserID__31EC6D26">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Debtors" Type="Self.Debtors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Debtors">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loans__BankID__32E0915F">
+          <End Role="Banks" Type="Self.Banks" Multiplicity="0..1" />
+          <End Role="Loans" Type="Self.Loans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Loans">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loans__DebtorID__33D4B598">
+          <End Role="Debtors" Type="Self.Debtors" Multiplicity="0..1" />
+          <End Role="Loans" Type="Self.Loans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debtors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Loans">
+              <PropertyRef Name="DebtorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loans__Informati__34C8D9D1">
+          <End Role="InformationAboutLoans" Type="Self.InformationAboutLoans" Multiplicity="0..1" />
+          <End Role="Loans" Type="Self.Loans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InformationAboutLoans">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Loans">
+              <PropertyRef Name="InformationAboutLoansID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loans__RealEstat__35BCFE0A">
+          <End Role="RealEstateObjects" Type="Self.RealEstateObjects" Multiplicity="0..1" />
+          <End Role="Loans" Type="Self.Loans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RealEstateObjects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Loans">
+              <PropertyRef Name="RealEstateObjectsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RealEstat__RealE__36B12243">
+          <End Role="RealEstateType" Type="Self.RealEstateType" Multiplicity="0..1" />
+          <End Role="RealEstateObjects" Type="Self.RealEstateObjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RealEstateType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RealEstateObjects">
+              <PropertyRef Name="RealEstateTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RealEstat__RealE__37A5467C">
+          <End Role="RealEstateCategory" Type="Self.RealEstateCategory" Multiplicity="0..1" />
+          <End Role="RealEstateObjects" Type="Self.RealEstateObjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RealEstateCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RealEstateObjects">
+              <PropertyRef Name="RealEstateCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище CreditsModelContainer">
+          <EntitySet Name="Banks" EntityType="Self.Banks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Debtors" EntityType="Self.Debtors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InformationAboutLoans" EntityType="Self.InformationAboutLoans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loans" EntityType="Self.Loans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RealEstateCategory" EntityType="Self.RealEstateCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RealEstateObjects" EntityType="Self.RealEstateObjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RealEstateType" EntityType="Self.RealEstateType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Debtors__UserID__31EC6D26" Association="Self.FK__Debtors__UserID__31EC6D26">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Debtors" EntitySet="Debtors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loans__BankID__32E0915F" Association="Self.FK__Loans__BankID__32E0915F">
+            <End Role="Banks" EntitySet="Banks" />
+            <End Role="Loans" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loans__DebtorID__33D4B598" Association="Self.FK__Loans__DebtorID__33D4B598">
+            <End Role="Debtors" EntitySet="Debtors" />
+            <End Role="Loans" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loans__Informati__34C8D9D1" Association="Self.FK__Loans__Informati__34C8D9D1">
+            <End Role="InformationAboutLoans" EntitySet="InformationAboutLoans" />
+            <End Role="Loans" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loans__RealEstat__35BCFE0A" Association="Self.FK__Loans__RealEstat__35BCFE0A">
+            <End Role="RealEstateObjects" EntitySet="RealEstateObjects" />
+            <End Role="Loans" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RealEstat__RealE__36B12243" Association="Self.FK__RealEstat__RealE__36B12243">
+            <End Role="RealEstateType" EntitySet="RealEstateType" />
+            <End Role="RealEstateObjects" EntitySet="RealEstateObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RealEstat__RealE__37A5467C" Association="Self.FK__RealEstat__RealE__37A5467C">
+            <End Role="RealEstateCategory" EntitySet="RealEstateCategory" />
+            <End Role="RealEstateObjects" EntitySet="RealEstateObjects" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CreditsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Loans" Relationship="Self.FK__Loans__BankID__32E0915F" FromRole="Banks" ToRole="Loans" />
+        </EntityType>
+        <EntityType Name="Debtor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Debtors__UserID__31EC6D26" FromRole="Debtors" ToRole="Users" />
+          <NavigationProperty Name="Loans" Relationship="Self.FK__Loans__DebtorID__33D4B598" FromRole="Debtors" ToRole="Loans" />
+        </EntityType>
+        <EntityType Name="InformationAboutLoan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoansName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoansTerm" Type="Int32" />
+          <Property Name="InterestRate" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="DownPayment" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="MonthlyPayment" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="LifeInsurance" Type="Boolean" />
+          <NavigationProperty Name="Loans" Relationship="Self.FK__Loans__Informati__34C8D9D1" FromRole="InformationAboutLoans" ToRole="Loans" />
+        </EntityType>
+        <EntityType Name="Loan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankID" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="DebtorID" Type="Int32" />
+          <Property Name="InformationAboutLoansID" Type="Int32" />
+          <Property Name="RealEstateObjectsID" Type="Int32" />
+          <Property Name="AdditionalConditions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAccepted" Type="Boolean" />
+          <Property Name="IsDecline" Type="Boolean" />
+          <Property Name="IsPaid" Type="Boolean" />
+          <NavigationProperty Name="Bank" Relationship="Self.FK__Loans__BankID__32E0915F" FromRole="Loans" ToRole="Banks" />
+          <NavigationProperty Name="Debtor" Relationship="Self.FK__Loans__DebtorID__33D4B598" FromRole="Loans" ToRole="Debtors" />
+          <NavigationProperty Name="InformationAboutLoan" Relationship="Self.FK__Loans__Informati__34C8D9D1" FromRole="Loans" ToRole="InformationAboutLoans" />
+          <NavigationProperty Name="RealEstateObject" Relationship="Self.FK__Loans__RealEstat__35BCFE0A" FromRole="Loans" ToRole="RealEstateObjects" />
+        </EntityType>
+        <EntityType Name="RealEstateCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EstateCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RealEstateObjects" Relationship="Self.FK__RealEstat__RealE__37A5467C" FromRole="RealEstateCategory" ToRole="RealEstateObjects" />
+        </EntityType>
+        <EntityType Name="RealEstateObject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RealEstateTypeID" Type="Int32" />
+          <Property Name="RealEstateCategoryID" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Paid" Type="Decimal" Precision="11" Scale="2" />
+          <NavigationProperty Name="Loans" Relationship="Self.FK__Loans__RealEstat__35BCFE0A" FromRole="RealEstateObjects" ToRole="Loans" />
+          <NavigationProperty Name="RealEstateCategory" Relationship="Self.FK__RealEstat__RealE__37A5467C" FromRole="RealEstateObjects" ToRole="RealEstateCategory" />
+          <NavigationProperty Name="RealEstateType" Relationship="Self.FK__RealEstat__RealE__36B12243" FromRole="RealEstateObjects" ToRole="RealEstateType" />
+        </EntityType>
+        <EntityType Name="RealEstateType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EstateType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RealEstateObjects" Relationship="Self.FK__RealEstat__RealE__36B12243" FromRole="RealEstateType" ToRole="RealEstateObjects" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Debtors" Relationship="Self.FK__Debtors__UserID__31EC6D26" FromRole="Users" ToRole="Debtors" />
+        </EntityType>
+        <Association Name="FK__Loans__BankID__32E0915F">
+          <End Role="Banks" Type="Self.Bank" Multiplicity="0..1" />
+          <End Role="Loans" Type="Self.Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Loans">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Debtors__UserID__31EC6D26">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Debtors" Type="Self.Debtor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Debtors">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loans__DebtorID__33D4B598">
+          <End Role="Debtors" Type="Self.Debtor" Multiplicity="0..1" />
+          <End Role="Loans" Type="Self.Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Debtors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Loans">
+              <PropertyRef Name="DebtorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loans__Informati__34C8D9D1">
+          <End Role="InformationAboutLoans" Type="Self.InformationAboutLoan" Multiplicity="0..1" />
+          <End Role="Loans" Type="Self.Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InformationAboutLoans">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Loans">
+              <PropertyRef Name="InformationAboutLoansID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loans__RealEstat__35BCFE0A">
+          <End Role="RealEstateObjects" Type="Self.RealEstateObject" Multiplicity="0..1" />
+          <End Role="Loans" Type="Self.Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RealEstateObjects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Loans">
+              <PropertyRef Name="RealEstateObjectsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RealEstat__RealE__37A5467C">
+          <End Role="RealEstateCategory" Type="Self.RealEstateCategory" Multiplicity="0..1" />
+          <End Role="RealEstateObjects" Type="Self.RealEstateObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RealEstateCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RealEstateObjects">
+              <PropertyRef Name="RealEstateCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RealEstat__RealE__36B12243">
+          <End Role="RealEstateType" Type="Self.RealEstateType" Multiplicity="0..1" />
+          <End Role="RealEstateObjects" Type="Self.RealEstateObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RealEstateType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RealEstateObjects">
+              <PropertyRef Name="RealEstateTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CreditsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Banks" EntityType="Self.Bank" />
+          <EntitySet Name="Debtors" EntityType="Self.Debtor" />
+          <EntitySet Name="InformationAboutLoans" EntityType="Self.InformationAboutLoan" />
+          <EntitySet Name="Loans" EntityType="Self.Loan" />
+          <EntitySet Name="RealEstateCategories" EntityType="Self.RealEstateCategory" />
+          <EntitySet Name="RealEstateObjects" EntityType="Self.RealEstateObject" />
+          <EntitySet Name="RealEstateTypes" EntityType="Self.RealEstateType" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Loans__BankID__32E0915F" Association="Self.FK__Loans__BankID__32E0915F">
+            <End Role="Banks" EntitySet="Banks" />
+            <End Role="Loans" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Debtors__UserID__31EC6D26" Association="Self.FK__Debtors__UserID__31EC6D26">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Debtors" EntitySet="Debtors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loans__DebtorID__33D4B598" Association="Self.FK__Loans__DebtorID__33D4B598">
+            <End Role="Debtors" EntitySet="Debtors" />
+            <End Role="Loans" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loans__Informati__34C8D9D1" Association="Self.FK__Loans__Informati__34C8D9D1">
+            <End Role="InformationAboutLoans" EntitySet="InformationAboutLoans" />
+            <End Role="Loans" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loans__RealEstat__35BCFE0A" Association="Self.FK__Loans__RealEstat__35BCFE0A">
+            <End Role="RealEstateObjects" EntitySet="RealEstateObjects" />
+            <End Role="Loans" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RealEstat__RealE__37A5467C" Association="Self.FK__RealEstat__RealE__37A5467C">
+            <End Role="RealEstateCategory" EntitySet="RealEstateCategories" />
+            <End Role="RealEstateObjects" EntitySet="RealEstateObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RealEstat__RealE__36B12243" Association="Self.FK__RealEstat__RealE__36B12243">
+            <End Role="RealEstateType" EntitySet="RealEstateTypes" />
+            <End Role="RealEstateObjects" EntitySet="RealEstateObjects" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CreditsModelContainer" CdmEntityContainer="CreditsEntities">
+          <EntitySetMapping Name="Banks">
+            <EntityTypeMapping TypeName="CreditsModel.Bank">
+              <MappingFragment StoreEntitySet="Banks">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Debtors">
+            <EntityTypeMapping TypeName="CreditsModel.Debtor">
+              <MappingFragment StoreEntitySet="Debtors">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InformationAboutLoans">
+            <EntityTypeMapping TypeName="CreditsModel.InformationAboutLoan">
+              <MappingFragment StoreEntitySet="InformationAboutLoans">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LoansName" ColumnName="LoansName" />
+                <ScalarProperty Name="LoansTerm" ColumnName="LoansTerm" />
+                <ScalarProperty Name="InterestRate" ColumnName="InterestRate" />
+                <ScalarProperty Name="DownPayment" ColumnName="DownPayment" />
+                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+                <ScalarProperty Name="LifeInsurance" ColumnName="LifeInsurance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loans">
+            <EntityTypeMapping TypeName="CreditsModel.Loan">
+              <MappingFragment StoreEntitySet="Loans">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="DebtorID" ColumnName="DebtorID" />
+                <ScalarProperty Name="InformationAboutLoansID" ColumnName="InformationAboutLoansID" />
+                <ScalarProperty Name="RealEstateObjectsID" ColumnName="RealEstateObjectsID" />
+                <ScalarProperty Name="AdditionalConditions" ColumnName="AdditionalConditions" />
+                <ScalarProperty Name="IsAccepted" ColumnName="IsAccepted" />
+                <ScalarProperty Name="IsDecline" ColumnName="IsDecline" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RealEstateCategories">
+            <EntityTypeMapping TypeName="CreditsModel.RealEstateCategory">
+              <MappingFragment StoreEntitySet="RealEstateCategory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EstateCategory" ColumnName="EstateCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RealEstateObjects">
+            <EntityTypeMapping TypeName="CreditsModel.RealEstateObject">
+              <MappingFragment StoreEntitySet="RealEstateObjects">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RealEstateTypeID" ColumnName="RealEstateTypeID" />
+                <ScalarProperty Name="RealEstateCategoryID" ColumnName="RealEstateCategoryID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RealEstateTypes">
+            <EntityTypeMapping TypeName="CreditsModel.RealEstateType">
+              <MappingFragment StoreEntitySet="RealEstateType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EstateType" ColumnName="EstateType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CreditsModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

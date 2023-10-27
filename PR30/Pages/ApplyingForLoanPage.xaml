@@ -1,0 +1,89 @@
+﻿<Page x:Class="PR30.Pages.ApplyingForLoanPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PR30.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ApplyingForLoan">
+    <Grid Style="{DynamicResource GridStyle}" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.35*"/>
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Viewbox Grid.Row="0">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Банк: "/>
+        </Viewbox>
+        <ComboBox Style="{DynamicResource ComboBoxStyle}" Grid.Row="0" Grid.Column="1" Margin="5" x:Name="Banks" DisplayMemberPath="BankName" Grid.ColumnSpan="2"/>
+        
+        <Viewbox Grid.Row="1">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Тип кредита: "/>
+        </Viewbox>
+        <ComboBox Style="{DynamicResource ComboBoxStyle}" Grid.Row="1" Grid.Column="1" Margin="5" x:Name="LoansName" Grid.ColumnSpan="2"/>
+
+        <Viewbox Grid.Row="2">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Срок кредита: "/>
+        </Viewbox>
+        <TextBox Style="{DynamicResource TextBoxStyle}" Grid.Row="2" Grid.Column="1" Margin="5" x:Name="LoansTerm" Grid.ColumnSpan="2"/>
+
+        <Viewbox Grid.Row="3">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Процентная ставка: "/>
+        </Viewbox>
+        <TextBox Style="{DynamicResource TextBoxStyle}" Grid.Row="3" Grid.Column="1" Margin="5" x:Name="InterestRate" Grid.ColumnSpan="2"/>
+
+        <Viewbox Grid.Row="4">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Начальный платеж: "/>
+        </Viewbox>
+        <TextBox Style="{DynamicResource TextBoxStyle}" Grid.Row="4" Grid.Column="1" Margin="5" x:Name="DownPayment" Grid.ColumnSpan="2"/>
+
+        <Viewbox Grid.Row="5">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Страхование жизни: "/>
+        </Viewbox>
+        <ComboBox Style="{DynamicResource ComboBoxStyle}" Grid.Row="5" Grid.Column="1" Margin="5" x:Name="LifeInsurance" Grid.ColumnSpan="2"/>
+
+        <Viewbox Grid.Row="6">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Тип собственности: "/>
+        </Viewbox>
+        <ComboBox Style="{DynamicResource ComboBoxStyle}" Grid.Row="6" Grid.Column="1" Margin="5" x:Name="RealEstateType" DisplayMemberPath="EstateType" Grid.ColumnSpan="2"/>
+
+        <Viewbox Grid.Row="7">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Категория собственности: "/>
+        </Viewbox>
+        <ComboBox Style="{DynamicResource ComboBoxStyle}" Grid.Row="7" Grid.Column="1" Margin="5" x:Name="RealEstateCategory" DisplayMemberPath="EstateCategory" Grid.ColumnSpan="2"/>
+
+        <Viewbox Grid.Row="8">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Сумма кредита: "/>
+        </Viewbox>
+        <TextBox Style="{DynamicResource TextBoxStyle}" Grid.Row="8" Grid.Column="1" Margin="5" x:Name="Price" Grid.ColumnSpan="2"/>
+
+        <Viewbox Grid.Row="9">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Адрес: "/>
+        </Viewbox>
+        <TextBox Style="{DynamicResource TextBoxStyle}" Grid.Row="9" Grid.Column="1" Margin="5" x:Name="Address" Grid.ColumnSpan="2"/>
+
+        <Viewbox Grid.Row="10">
+            <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Дополнительные условия: "/>
+        </Viewbox>
+        <TextBox Style="{DynamicResource TextBoxStyle}" Grid.Row="10" Grid.Column="1" Margin="5" x:Name="AdditionalConditions" Grid.ColumnSpan="2"/>
+
+        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="Подать заявку" Click="Button_Click"/>
+        <Button Style="{DynamicResource ButtonStyle}" Grid.Row="11" Grid.Column="2" Margin="5" Content="Выйти" Click="Button_Click_1"/>
+    </Grid>
+</Page>
